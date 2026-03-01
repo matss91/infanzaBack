@@ -26,5 +26,15 @@ router.delete("/:id",auth, async (req, res) => {
   await Product.findByIdAndDelete(req.params.id);
   res.json({ msg: "Producto eliminado" });
 });
+// GET producto por ID
+router.get('/:id', async(req, res) => {
 
+const producto = await Product.findById(req.params.id);
+
+  if (!producto) {
+    return res.status(404).json({ mensaje: 'Producto no encontrado' });
+  }
+
+  res.json(producto);
+});
 module.exports = router;
